@@ -50,17 +50,21 @@ const Router = {
 
   // Lazy-load tiap section hanya saat pertama dibuka (cache di window.appState)
   loadSection(id) {
+    // PENTING: dibungkus arrow function agar `this` di dalam load() tetap
+    // merujuk ke object Pages.xxx masing-masing (referensi method telanjang
+    // seperti `Pages.dataSiswa.load` akan kehilangan binding `this` saat
+    // dipanggil lewat loaders[id]()).
     const loaders = {
-      'dashboard': Pages.dashboard.load,
-      'data-siswa': Pages.dataSiswa.load,
-      'form-siswa-baru': Pages.formSiswaBaru.load,
-      'input-nilai': Pages.inputNilai.load,
-      'ekskul-p5-absensi': Pages.epa.load,
-      'kenaikan-kelas': Pages.kenaikanKelas.load,
-      'berhenti-lulus': Pages.berhentiLulus.load,
-      'cetak': Pages.cetak.load,
-      'pengaturan': Pages.pengaturan.load,
-      'log-aktivitas': Pages.logAktivitas.load
+      'dashboard': () => Pages.dashboard.load(),
+      'data-siswa': () => Pages.dataSiswa.load(),
+      'form-siswa-baru': () => Pages.formSiswaBaru.load(),
+      'input-nilai': () => Pages.inputNilai.load(),
+      'ekskul-p5-absensi': () => Pages.epa.load(),
+      'kenaikan-kelas': () => Pages.kenaikanKelas.load(),
+      'berhenti-lulus': () => Pages.berhentiLulus.load(),
+      'cetak': () => Pages.cetak.load(),
+      'pengaturan': () => Pages.pengaturan.load(),
+      'log-aktivitas': () => Pages.logAktivitas.load()
     };
     loaders[id]?.();
   }
