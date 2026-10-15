@@ -51,7 +51,10 @@ Pages.profilSiswa = {
     if (tab === 'biodata') {
       c.innerHTML = this.kv(d.biodata);
     } else if (tab === 'ortu') {
-      c.innerHTML = (d.ortu || []).map(o => `<h4 style="margin-bottom:.5rem">${o.jenis}</h4>${this.kv(o)}<hr style="border-color:var(--border);margin:1rem 0"/>`).join('') || UI.emptyState('family_restroom', 'Belum ada data.');
+      c.innerHTML = (d.ortu || []).map(o => {
+        const { jenis, ...rest } = o;
+        return `<h4 style="margin-bottom:.5rem">${jenis}</h4>${this.kv(rest)}<hr style="border-color:var(--border);margin:1rem 0"/>`;
+      }).join('') || UI.emptyState('family_restroom', 'Belum ada data Orang Tua/Wali.');
     } else if (tab === 'nilai') {
       const rows = (d.nilai || []).map(n => `<tr><td>${n.mapel}</td><td class="mono">${n.tahun}</td><td>${n.kelas}</td><td>${n.semester}</td><td>${n.capaian}</td><td class="mono">${n.nilai}</td></tr>`).join('');
       c.innerHTML = `<div class="table-scroll"><table class="data-table"><thead><tr><th>Mapel</th><th>Tahun</th><th>Kelas</th><th>Semester</th><th>Capaian KKTP</th><th>Nilai</th></tr></thead><tbody>${rows || `<tr><td colspan="6">${UI.emptyState('grade','Belum ada nilai.')}</td></tr>`}</tbody></table></div>`;
@@ -71,7 +74,8 @@ Pages.profilSiswa = {
 
   kv(obj) {
     if (!obj) return UI.emptyState('description', 'Tidak ada data.');
-    return `<div class="grid grid-2">${Object.entries(obj).filter(([k]) => k !== 'fotoUrl').map(([k, v]) =>
+    const hidden = ['fotoUrl', '_row', 'id', 'siswaId'];
+    return `<div class="grid grid-2">${Object.entries(obj).filter(([k]) => !hidden.includes(k)).map(([k, v]) =>
       `<div><label>${k}</label><p style="font-size:13px">${v || '-'}</p></div>`).join('')}</div>`;
   },
 

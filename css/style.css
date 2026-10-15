@@ -200,8 +200,8 @@ table.data-table tbody tr.row-selected td:first-child{box-shadow:inset 2px 0 0 v
 .progress-bar{height:8px;background:var(--sky-deep);border-radius:99px;overflow:hidden;}
 .progress-bar>span{display:block;height:100%;background:var(--primary);}
 
-.steps{display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap;}
-.step-chip{display:flex;align-items:center;gap:.4rem;font-size:12px;padding:.4rem .7rem;border-radius:99px;background:var(--neutral-bg);color:var(--neutral-text);}
+.steps{display:flex;gap:.5rem;margin-bottom:1.2rem;overflow-x:auto;padding-bottom:.3rem;}
+.step-chip{display:flex;align-items:center;gap:.4rem;font-size:12px;padding:.4rem .7rem;border-radius:99px;background:var(--neutral-bg);color:var(--neutral-text);white-space:nowrap;flex-shrink:0;}
 .step-chip.active{background:var(--sky-deep);color:var(--primary-hover);font-weight:600;}
 .step-chip.done{background:var(--success-bg);color:var(--success-text);}
 
